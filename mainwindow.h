@@ -40,6 +40,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    void getAirports(QStringList& airports);
+
 };
 
 

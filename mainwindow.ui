@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>700</height>
+    <width>830</width>
+    <height>740</height>
    </rect>
   </property>
   <property name="palette">
@@ -50,14 +50,29 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>230</y>
+      <y>180</y>
       <width>211</width>
-      <height>221</height>
+      <height>339</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -65,8 +80,9 @@
       <widget class="QLabel" name="origLabel">
        <property name="font">
         <font>
+         <family>Yu Gothic</family>
          <pointsize>14</pointsize>
-         <bold>false</bold>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -81,13 +97,18 @@
          <pointsize>14</pointsize>
         </font>
        </property>
+       <property name="text">
+        <string/>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="destLabel">
        <property name="font">
         <font>
+         <family>Yu Gothic</family>
          <pointsize>14</pointsize>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -106,6 +127,12 @@
      </item>
      <item>
       <widget class="QLabel" name="dayLabel">
+       <property name="font">
+        <font>
+         <family>Yu Gothic</family>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Weekday of Flight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
@@ -115,8 +142,13 @@
       <widget class="QComboBox" name="dayBox">
        <property name="font">
         <font>
+         <family>Yu Gothic</family>
          <pointsize>14</pointsize>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="editable">
+        <bool>false</bool>
        </property>
        <item>
         <property name="text">
@@ -156,18 +188,34 @@
       </widget>
      </item>
     </layout>
+    <zorder>origLabel</zorder>
+    <zorder>origin</zorder>
+    <zorder>dayBox</zorder>
+    <zorder>destination</zorder>
+    <zorder>destLabel</zorder>
+    <zorder>dayLabel</zorder>
    </widget>
    <widget class="QLabel" name="Title">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>-10</y>
+      <x>170</x>
+      <y>30</y>
       <width>471</width>
-      <height>101</height>
+      <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic</family>
+      <pointsize>9</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:700;&quot;&gt;Will Your Flight Be Late?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Will Your Flight Be Late?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -177,13 +225,14 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>110</y>
+      <y>80</y>
       <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Yu Gothic</family>
       <pointsize>14</pointsize>
       <bold>true</bold>
      </font>
@@ -196,13 +245,14 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>160</y>
+      <y>130</y>
       <width>111</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Yu Gothic</family>
       <pointsize>14</pointsize>
       <bold>true</bold>
      </font>
@@ -215,14 +265,16 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>480</y>
+      <y>550</y>
       <width>211</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Yu Gothic</family>
       <pointsize>14</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -233,14 +285,16 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>560</y>
+      <y>630</y>
       <width>211</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Yu Gothic</family>
       <pointsize>14</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -250,9 +304,9 @@
    <widget class="QLabel" name="avgDelayTimeOutput">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>560</y>
-      <width>551</width>
+      <x>270</x>
+      <y>630</y>
+      <width>531</width>
       <height>61</height>
      </rect>
     </property>
@@ -272,9 +326,9 @@
    <widget class="QLabel" name="howManyDelaysOutput">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>480</y>
-      <width>551</width>
+      <x>270</x>
+      <y>550</y>
+      <width>531</width>
       <height>61</height>
      </rect>
     </property>
@@ -284,6 +338,9 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -291,19 +348,142 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="transparent">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>231</width>
+      <height>621</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 50);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="background">
+    <property name="geometry">
+     <rect>
+      <x>-8</x>
+      <y>-1</y>
+      <width>841</width>
+      <height>741</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/background.jpg);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="background.qrc">:/background.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="transparent_2">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>90</y>
+      <width>551</width>
+      <height>621</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 50);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="description">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>-10</y>
+      <width>521</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Welcome to Flight Delay Finder!
+
+To begin, choose a data structure. Then, choose
+airports using the airport code.</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="airportCodeLinks">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>220</y>
+      <width>471</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="description_2">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>290</y>
+      <width>590</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Finally, choose the weekday of the flight. Once you
+are done, click the two buttons at the bottom to
+get the number of delays and the average delay time.
+
+Have a safe flight!</string>
+    </property>
+   </widget>
+   <zorder>background</zorder>
+   <zorder>transparent_2</zorder>
+   <zorder>transparent</zorder>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>Title</zorder>
+   <zorder>howManyDelaysInput</zorder>
+   <zorder>howManyDelaysOutput</zorder>
+   <zorder>radioGraph</zorder>
+   <zorder>avgDelayTimeOutput</zorder>
+   <zorder>radioHashTable</zorder>
+   <zorder>avgDelayTimeInput</zorder>
+   <zorder>description</zorder>
+   <zorder>airportCodeLinks</zorder>
+   <zorder>description_2</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="background.qrc"/>
+ </resources>
  <connections/>
 </ui>

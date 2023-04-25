@@ -1,12 +1,16 @@
-
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include <fstream>
 #include <sstream>
-#include "HashTable.h"
 #include <string>
-#include "QFile"
 #include <map>
+#include <vector>
+#include <QCompleter>
+#include <QDesktopServices>
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "HashTable.h"
+#include "QFile"
+
+using namespace std;
 
 HashTable table;
 
@@ -18,6 +22,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //allow clickable link
+    ui->airportCodeLinks->setText("<a href=\"https://www.ccra.com/airport-codes/\">(See list here)</a>");
+    ui->airportCodeLinks->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    ui->airportCodeLinks->setOpenExternalLinks(true);
+
+    //autocomplete airport names
+    QStringList airports;
+    getAirports(airports);
+    airports.removeDuplicates();
+
+    QCompleter *completer = new QCompleter(airports, this);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->origin->setCompleter(completer);
+    ui->destination->setCompleter(completer);
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +43,45 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::getAirports(QStringList& airports) {
+    ifstream inputFile;
+    inputFile.open("C:\\Users\\fanta\\Desktop\\Final\\airlines_delay.csv");
+
+    string line = "";
+    getline(inputFile, line); // x throw away header line
+    line = "";
+
+    while (getline(inputFile, line)) {
+
+        string origin;
+        string destination;
+        QString q;
+
+        string temp = "";
+
+        stringstream inputString(line);
+
+        getline(inputString, temp, ',');
+        getline(inputString, temp, ',');
+        getline(inputString, temp, ',');
+        getline(inputString, temp, ',');
+
+        getline(inputString, origin, ',');
+        q = origin.c_str();
+        airports.push_back(q);
+
+        getline(inputString, destination, ',');
+        q = destination.c_str();
+        airports.push_back(q);
+
+        getline(inputString, temp, ',');
+        getline(inputString, temp, ',');
+        getline(inputString, temp, ',');
+
+        line = "";
+    }
+}
 
 
 void MainWindow::on_radioHashTable_clicked()
@@ -34,15 +91,14 @@ void MainWindow::on_radioHashTable_clicked()
     mode = "HashTable";
 
     int added = 0;
-
     int total = 539382;
 
-    float progress = (float(added) / float(total)) * 100;
+    //float progress = (float(added) / float(total)) * 100;
 
-    std::ifstream inputFile;
-    inputFile.open("C:\\Users\\gavin\\Documents\\QtProjects\\COP3530FinalProjectGUI\\airlines_delay.csv");
+    ifstream inputFile;
+    inputFile.open("C:\\Users\\fanta\\Desktop\\Final\\airlines_delay.csv");
 
-    std::string line = "";
+    string line = "";
     getline(inputFile, line); // x throw away header line
     line = "";
 
@@ -51,16 +107,16 @@ void MainWindow::on_radioHashTable_clicked()
         int id;
         int departTime;
         int flightDuration;
-        std::string airline;
-        std::string origin;
-        std::string destination;
+        string airline;
+        string origin;
+        string destination;
         int day;
         int delayed;
         int delayDuration;
 
-        std::string temp = "";
+        string temp = "";
 
-        std::stringstream inputString(line);
+        stringstream inputString(line);
 
         getline(inputString, temp, ',');
         id = atoi(temp.c_str());
@@ -92,31 +148,24 @@ void MainWindow::on_radioHashTable_clicked()
         added++;
 
         line = "";
-
     }
-
-    std::cout << "Hash table loaded" << std::endl;
-
+    cout << "Hash table loaded" << endl;
 }
 
 
 void MainWindow::on_radioGraph_clicked()
 {
-
     mode = "Graph";
 
     table.clearHashTable();
 
-
-
-    std::cout << "Graph loaded" << std::endl;
-
+    cout << "Graph loaded" << endl;
 }
 
 
 void MainWindow::on_howManyDelaysInput_clicked()
 {
-    std::map<std::string, int> weekdays;
+    map<string, int> weekdays;
 
     weekdays["Sunday"] = 1;
     weekdays["Monday"] = 2;
@@ -157,7 +206,7 @@ void MainWindow::on_howManyDelaysInput_clicked()
 
 void MainWindow::on_avgDelayTimeInput_clicked()
 {
-    std::map<std::string, int> weekdays;
+    map<string, int> weekdays;
 
     weekdays["Sunday"] = 1;
     weekdays["Monday"] = 2;
@@ -172,7 +221,7 @@ void MainWindow::on_avgDelayTimeInput_clicked()
         QString origin = ui->origin->text();
         QString destination = ui->destination->text();
         QString day = ui->dayBox->currentText();
-        QString avg = QString::number(table.findAvgDelay(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
+        QString avg = QString::number(table.findAvgDelay(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]), 'f', 2);
 
         if (avg.toFloat() == -1) {
 
@@ -181,9 +230,7 @@ void MainWindow::on_avgDelayTimeInput_clicked()
         }
 
         else {
-
             ui->avgDelayTimeOutput->setText(day + " flights from " + origin + " to " + destination + " have an average delay time of " + avg + " minutes");
-
         }
 
     }
