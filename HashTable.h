@@ -13,7 +13,7 @@ private:
     vector<list<Flight>> table; // vector of lists of Flights, each list with a common origin
 
     int maxSize = 1000; // max size of the hash table
-    float maxLoadFactor = 0.7; // max load factor before resizing
+    const float maxLoadFactor = 0.7; // max load factor before resizing
     float currentLoadFactor = float(table.size()) / float(maxSize);
     vector<string> weekdays = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
@@ -53,7 +53,6 @@ void HashTable::insert(Flight& f) {
         maxSize *= 2;
         table.resize(maxSize);
     }
-    currentLoadFactor = float(table.size()) / float(maxSize);
 }
 
 int HashTable::numOfFlights(string origin, string destination, int day) {
@@ -107,6 +106,9 @@ int HashTable::findDelays(string origin, string destination, int day) {
 
 void HashTable::clearHashTable() {
     table.clear();
+    maxSize = 1000;
+    currentLoadFactor = float(table.size()) / float(maxSize);
+    table.resize(maxSize);
 }
 
 #endif // HASHTABLE_H
