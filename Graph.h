@@ -1,7 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "Flight.h"
+//#include "Flight.h"
 #include <sstream>
 #include <iostream>
 #include <iomanip>
@@ -9,10 +9,7 @@
 #include <map>
 #include <vector>
 
-
 using namespace std;
-
-
 
 class Graph {
 public: //rn public for debugging purposes, change back to private later
@@ -22,6 +19,7 @@ public: //rn public for debugging purposes, change back to private later
     int fractionNumerator(string from, string to, int functionDay);
     int fractionDenominator(string from, string to, int functionDay);
     float averageDelay(string from, string to, int functionDay);
+    void clearGraph();
 
 };
 
@@ -57,7 +55,6 @@ int Graph::fractionDenominator(string from, string to, int functionDay) {
 float Graph::averageDelay(string from, string to, int functionDay) {
     float sum = 0;
     float numFlights = 0;
-    float result = 0;
     for(int i = 0; i < graph[from].size(); i++) { //this works
         Flight thing = graph[from].at(i);
         if(thing.destination == to && thing.day == functionDay && thing.delayed == 1) {
@@ -72,6 +69,10 @@ float Graph::averageDelay(string from, string to, int functionDay) {
         return(sum/numFlights);
     }
 
+}
+
+void Graph::clearGraph() {
+    graph.clear();
 }
 
 

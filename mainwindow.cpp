@@ -14,9 +14,7 @@
 using namespace std;
 
 HashTable table;
-
 Graph graph;
-
 string mode;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -47,9 +45,10 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::getAirports(QStringList& airports) {
+void MainWindow::getAirports(QStringList& airports)
+{
     ifstream inputFile;
-    inputFile.open("C:\\Users\\slama\\Desktop\\COP3530FinalProjectGUI\\airlines_delay.csv");
+    inputFile.open("C:\\Users\\fanta\\Desktop\\FinalProject\\airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -82,7 +81,6 @@ void MainWindow::getAirports(QStringList& airports) {
         getline(inputString, temp, ',');
         getline(inputString, temp, ',');
 
-
         line = "";
     }
 }
@@ -95,12 +93,9 @@ void MainWindow::on_radioHashTable_clicked()
     mode = "HashTable";
 
     int added = 0;
-    int total = 539382;
-
-    //float progress = (float(added) / float(total)) * 100;
 
     ifstream inputFile;
-    inputFile.open("C:\\Users\\slama\\Desktop\\COP3530FinalProjectGUI\\airlines_delay.csv");
+    inputFile.open("C:\\Users\\fanta\\Desktop\\FinalProject\\airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -159,16 +154,14 @@ void MainWindow::on_radioHashTable_clicked()
 
 void MainWindow::on_radioGraph_clicked()
 {
+    graph.clearGraph();
 
     mode = "Graph";
 
     int added = 0;
-    int total = 539382;
-
-    //float progress = (float(added) / float(total)) * 100;
 
     ifstream inputFile;
-    inputFile.open("C:\\Users\\slama\\Desktop\\COP3530FinalProjectGUI\\airlines_delay.csv");
+    inputFile.open("C:\\Users\\fanta\\Desktop\\FinalProject\\airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -246,17 +239,12 @@ void MainWindow::on_howManyDelaysInput_clicked()
         QString total = QString::number(table.numOfFlights(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
 
         if (delayed.toInt() == -1) {
-
             ui->howManyDelaysOutput->setText(day + " flights from " + origin + " to " + destination + " couldn't be found");
-
         }
 
         else {
-
             ui->howManyDelaysOutput->setText(day + " flights from " + origin + " to " + destination + " have been delayed " + delayed + " out of " + total + " times");
-
         }
-
     }
 
     else { //for Graph mode
@@ -267,18 +255,13 @@ void MainWindow::on_howManyDelaysInput_clicked()
         QString total = QString::number(graph.fractionDenominator(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
 
         if (delayed.toInt() == 0) {
-
             ui->howManyDelaysOutput->setText(day + " flights from " + origin + " to " + destination + " couldn't be found");
-
         }
 
         else {
-
             ui->howManyDelaysOutput->setText(day + " flights from " + origin + " to " + destination + " have been delayed " + delayed + " out of " + total + " times");
-
         }
     }
-
 }
 
 
@@ -302,9 +285,7 @@ void MainWindow::on_avgDelayTimeInput_clicked()
         QString avg = QString::number(table.findAvgDelay(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]), 'f', 2);
 
         if (avg.toFloat() == -1) {
-
             ui->avgDelayTimeOutput->setText(day + " flights from " + origin + " to " + destination + " couldn't be found");
-
         }
 
         else {
@@ -313,16 +294,14 @@ void MainWindow::on_avgDelayTimeInput_clicked()
 
     }
 
-    else { //for graph
+    else { //Graph
         QString origin = ui->origin->text();
         QString destination = ui->destination->text();
         QString day = ui->dayBox->currentText();
-        QString avg = QString::number(graph.averageDelay(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
+        QString avg = QString::number(graph.averageDelay(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]), 'f', 2);
 
         if (avg.toFloat() == 0) {
-
             ui->avgDelayTimeOutput->setText(day + " flights from " + origin + " to " + destination + " couldn't be found");
-
         }
 
         else {
