@@ -8,11 +8,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "HashTable.h"
+#include "Graph.h"
 #include "QFile"
 
 using namespace std;
 
 HashTable table;
+
+Graph graph;
 
 string mode;
 
@@ -46,7 +49,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::getAirports(QStringList& airports) {
     ifstream inputFile;
-    inputFile.open("C:\\Users\\fanta\\Desktop\\Final\\airlines_delay.csv");
+    inputFile.open("C:\\Users\\slama\\Desktop\\COP3530FinalProjectGUI\\airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -79,6 +82,7 @@ void MainWindow::getAirports(QStringList& airports) {
         getline(inputString, temp, ',');
         getline(inputString, temp, ',');
 
+
         line = "";
     }
 }
@@ -96,7 +100,7 @@ void MainWindow::on_radioHashTable_clicked()
     //float progress = (float(added) / float(total)) * 100;
 
     ifstream inputFile;
-    inputFile.open("C:\\Users\\fanta\\Desktop\\Final\\airlines_delay.csv");
+    inputFile.open("C:\\Users\\slama\\Desktop\\COP3530FinalProjectGUI\\airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -155,11 +159,69 @@ void MainWindow::on_radioHashTable_clicked()
 
 void MainWindow::on_radioGraph_clicked()
 {
+
     mode = "Graph";
 
-    table.clearHashTable();
+    int added = 0;
+    int total = 539382;
 
-    cout << "Graph loaded" << endl;
+    //float progress = (float(added) / float(total)) * 100;
+
+    ifstream inputFile;
+    inputFile.open("C:\\Users\\slama\\Desktop\\COP3530FinalProjectGUI\\airlines_delay.csv");
+
+    string line = "";
+    getline(inputFile, line); // x throw away header line
+    line = "";
+
+    while (getline(inputFile, line)) {
+
+        int id;
+        int departTime;
+        int flightDuration;
+        string airline;
+        string origin;
+        string destination;
+        int day;
+        int delayed;
+        int delayDuration;
+
+        string temp = "";
+
+        stringstream inputString(line);
+
+        getline(inputString, temp, ',');
+        id = atoi(temp.c_str());
+
+        getline(inputString, temp, ',');
+        departTime = atoi(temp.c_str());
+
+        getline(inputString, temp, ',');
+        flightDuration = atoi(temp.c_str());
+
+        getline(inputString, airline, ',');
+        getline(inputString, origin, ',');
+        getline(inputString, destination, ',');
+
+        getline(inputString, temp, ',');
+        day = atoi(temp.c_str());
+
+        getline(inputString, temp, ',');
+        delayed = atoi(temp.c_str());
+
+        getline(inputString, temp, ',');
+        delayDuration = atoi(temp.c_str());
+
+        Flight flight(id, departTime, flightDuration, airline, origin,
+                      destination, day, delayed, delayDuration);
+
+        graph.insertEdge(origin, flight);
+
+        added++;
+
+        line = "";
+    }
+    cout << "Graph loaded!" << endl;
 }
 
 
@@ -197,8 +259,24 @@ void MainWindow::on_howManyDelaysInput_clicked()
 
     }
 
-    else {
+    else { //for Graph mode
+        QString origin = ui->origin->text();
+        QString destination = ui->destination->text();
+        QString day = ui->dayBox->currentText();
+        QString delayed = QString::number(graph.fractionNumerator(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
+        QString total = QString::number(graph.fractionDenominator(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
 
+        if (delayed.toInt() == 0) {
+
+            ui->howManyDelaysOutput->setText(day + " flights from " + origin + " to " + destination + " couldn't be found");
+
+        }
+
+        else {
+
+            ui->howManyDelaysOutput->setText(day + " flights from " + origin + " to " + destination + " have been delayed " + delayed + " out of " + total + " times");
+
+        }
     }
 
 }
@@ -235,8 +313,21 @@ void MainWindow::on_avgDelayTimeInput_clicked()
 
     }
 
-    else {
+    else { //for graph
+        QString origin = ui->origin->text();
+        QString destination = ui->destination->text();
+        QString day = ui->dayBox->currentText();
+        QString avg = QString::number(graph.averageDelay(origin.toStdString(), destination.toStdString(), weekdays[day.toStdString()]));
 
+        if (avg.toFloat() == 0) {
+
+            ui->avgDelayTimeOutput->setText(day + " flights from " + origin + " to " + destination + " couldn't be found");
+
+        }
+
+        else {
+            ui->avgDelayTimeOutput->setText(day + " flights from " + origin + " to " + destination + " have an average delay time of " + avg + " minutes");
+        }
     }
 
 }
