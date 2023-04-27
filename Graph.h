@@ -12,10 +12,9 @@
 using namespace std;
 
 class Graph {
-public: //rn public for debugging purposes, change back to private later
+private:
     map<string, vector<Flight>> graph;
     void insertEdge(string from, Flight data);
-    void averageTime(string from, string to, int day);
     int fractionNumerator(string from, string to, int functionDay);
     int fractionDenominator(string from, string to, int functionDay);
     float averageDelay(string from, string to, int functionDay);
@@ -31,6 +30,7 @@ void Graph::insertEdge(string from, Flight data) {
 }
 
 int Graph::fractionNumerator(string from, string to, int functionDay) {
+    //returns number of delayed flights
     int count = 0;
     for(int i = 0; i < graph[from].size(); i++) {
         Flight thing = graph[from].at(i);
@@ -42,8 +42,9 @@ int Graph::fractionNumerator(string from, string to, int functionDay) {
 }
 
 int Graph::fractionDenominator(string from, string to, int functionDay) {
+    //returns total number of flights
     int count = 0;
-    for(int i = 0; i < graph[from].size(); i++) { //this works
+    for(int i = 0; i < graph[from].size(); i++) {
         Flight thing = graph[from].at(i);
         if(thing.destination == to && thing.day == functionDay) {
             count++;
@@ -55,7 +56,7 @@ int Graph::fractionDenominator(string from, string to, int functionDay) {
 float Graph::averageDelay(string from, string to, int functionDay) {
     float sum = 0;
     float numFlights = 0;
-    for(int i = 0; i < graph[from].size(); i++) { //this works
+    for(int i = 0; i < graph[from].size(); i++) {
         Flight thing = graph[from].at(i);
         if(thing.destination == to && thing.day == functionDay && thing.delayed == 1) {
             numFlights++;

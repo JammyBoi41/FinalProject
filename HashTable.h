@@ -30,7 +30,8 @@ public:
 
 };
 
-int HashTable::hashFunction(string key) { // custom hash function to determine index
+int HashTable::hashFunction(string key) {
+    // custom hash function to determine index
     int hashVal = 0;
 
     for (char c : key) {

@@ -48,7 +48,7 @@ MainWindow::~MainWindow()
 void MainWindow::getAirports(QStringList& airports)
 {
     ifstream inputFile;
-    inputFile.open("C:\\Users\\fanta\\Desktop\\FinalProject\\airlines_delay.csv");
+    inputFile.open("airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -95,7 +95,7 @@ void MainWindow::on_radioHashTable_clicked()
     int added = 0;
 
     ifstream inputFile;
-    inputFile.open("C:\\Users\\fanta\\Desktop\\FinalProject\\airlines_delay.csv");
+    inputFile.open("airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -161,7 +161,7 @@ void MainWindow::on_radioGraph_clicked()
     int added = 0;
 
     ifstream inputFile;
-    inputFile.open("C:\\Users\\fanta\\Desktop\\FinalProject\\airlines_delay.csv");
+    inputFile.open("airlines_delay.csv");
 
     string line = "";
     getline(inputFile, line); // x throw away header line
@@ -247,7 +247,7 @@ void MainWindow::on_howManyDelaysInput_clicked()
         }
     }
 
-    else { //for Graph mode
+    else { //mode == "Graph"
         QString origin = ui->origin->text();
         QString destination = ui->destination->text();
         QString day = ui->dayBox->currentText();
@@ -294,7 +294,7 @@ void MainWindow::on_avgDelayTimeInput_clicked()
 
     }
 
-    else { //Graph
+    else { //mode == "Graph"
         QString origin = ui->origin->text();
         QString destination = ui->destination->text();
         QString day = ui->dayBox->currentText();
